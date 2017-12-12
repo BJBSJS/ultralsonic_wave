@@ -11,12 +11,7 @@ u16 SendBuff[SEND_BUF_SIZE];	//发送数据缓冲区
 extern int flag;
 
 int i,j;
-//ALIENTEK 探索者STM32F407开发板 实验8
-//定时器中断实验-库函数版本
-//技术支持：www.openedv.com
-//淘宝店铺：http://eboard.taobao.com
-//广州市星翼电子科技有限公司  
-//作者：正点原子 @ALIENTEK  
+
 int main(void)
 { 
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//设置系统中断优先级分组2
