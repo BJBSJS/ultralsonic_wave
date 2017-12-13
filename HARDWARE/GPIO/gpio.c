@@ -12,37 +12,44 @@
 //All rights reserved									  
 ////////////////////////////////////////////////////////////////////////////////// 	 
 
-//初始化PF9和PF10为输出口.并使能这两个口的时钟		    
-//LED IO初始化
-void GPIOS_Init(void)
+
+void GPIO_OUT_Init(void)
 {    	 
   GPIO_InitTypeDef  GPIO_InitStructure;
 
-  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB|RCC_AHB1Periph_GPIOC|RCC_AHB1Periph_GPIOF, ENABLE);//使能GPIOF时钟
+  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOF, ENABLE);//使能GPIOF时钟
 
   //GPIOF9,F10初始化设置
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5 | GPIO_Pin_6 | GPIO_Pin_10;
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_9 | GPIO_Pin_10;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;//普通输出模式
   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;//推挽输出
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//100MHz
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//上拉
   GPIO_Init(GPIOF, &GPIO_InitStructure);//初始化
 	
-	GPIO_SetBits(GPIOF,GPIO_Pin_5 |GPIO_Pin_6 | GPIO_Pin_10);//GPIOF5,F6,F10设置高
+	GPIO_ResetBits(GPIOF,GPIO_Pin_10);//GPIOF10设置低
+	GPIO_SetBits(GPIOF,GPIO_Pin_8 |GPIO_Pin_9);//GPIOF5,F6设置高
+}
+
+void GPIO_INPUT_Init(void)
+{    	 
+  GPIO_InitTypeDef  GPIO_InitStructure;
+
+  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB | RCC_AHB1Periph_GPIOC, ENABLE);//使能GPIOB&C时钟
+
 	
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All; //
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;//普通输入模式
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;//2M
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//2M
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//上拉
   GPIO_Init(GPIOB, &GPIO_InitStructure);//初始化GPIOB
 	
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_All; //
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;//普通输入模式
-  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;//2M
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;//2M
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;//上拉
   GPIO_Init(GPIOC, &GPIO_InitStructure);//初始化GPIOC
 }
-
 
 
 

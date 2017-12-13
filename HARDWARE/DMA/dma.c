@@ -49,8 +49,8 @@ void MYDMA_Config(DMA_Stream_TypeDef *DMA_Streamx,u32 chx,u32 par,u32 mar,u16 nd
   DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;//存储器增量模式
   DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;//外设数据长度:16位
   DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_HalfWord;//存储器数据长度:16位
-  DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;// 使用普通模式 
-  DMA_InitStructure.DMA_Priority = DMA_Priority_Medium;//中等优先级
+  DMA_InitStructure.DMA_Mode = DMA_Mode_Circular;// 使用循环模式
+  DMA_InitStructure.DMA_Priority = DMA_Priority_High;//高等优先级
   DMA_InitStructure.DMA_FIFOMode = DMA_FIFOMode_Disable;         
   DMA_InitStructure.DMA_FIFOThreshold = DMA_FIFOThreshold_Full;
   DMA_InitStructure.DMA_MemoryBurst = DMA_MemoryBurst_Single;//存储器突发单次传输

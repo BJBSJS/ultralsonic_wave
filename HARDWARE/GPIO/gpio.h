@@ -17,14 +17,14 @@
 
 
 //PWM端口定义
-#define PWM1 PFout(5)	// 
-#define PWM2 PFout(6)	// 
-#define PWM3 PFout(7)	// 
-#define PWM4 PFout(8)	// 
+#define PWM1 PFout(9)	// 
+#define PWM2 PFout(8)	// 
+ 
 //LED端口定义
-#define LED0 PFout(9)	// DS0
+
 #define LED1 PFout(10)	// DS1	 
 
 
-void GPIOS_Init(void);//初始化		 				    
+void GPIO_OUT_Init(void);//初始化	
+void GPIO_INPUT_Init(void);//初始化	
 #endif

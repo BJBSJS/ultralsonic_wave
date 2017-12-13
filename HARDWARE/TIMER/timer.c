@@ -19,11 +19,11 @@ int flag;
 int count1=0;
 int count2=0;
 
-//TIM13 PWM部分初始化 
+//TIM11 PWM部分初始化 
 //PWM输出初始化
 //arr：自动重装值
 //psc：时钟预分频数
-void TIM13_PWM_Init(u32 arr,u32 psc)
+void TIM11_PWM_Init(u32 arr,u32 psc)
 {		 					 
 	//此部分需手动修改IO口设置
 	
@@ -31,43 +31,44 @@ void TIM13_PWM_Init(u32 arr,u32 psc)
 	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
 	TIM_OCInitTypeDef  TIM_OCInitStructure;
 	
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM13,ENABLE);  	//TIM13时钟使能    
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM11,ENABLE);  	//TIM11时钟使能    
 //	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOF, ENABLE); 	//使能PORTF时钟	
 	
-	GPIO_PinAFConfig(GPIOF,GPIO_PinSource8,GPIO_AF_TIM13); //GPIOF8复用为定时器13
+	GPIO_PinAFConfig(GPIOF,GPIO_PinSource7,GPIO_AF_TIM11); //GPIOF7复用为定时器11
 	
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;           //GPIOF8
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;           //GPIOF7
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;        //复用功能
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;	//速度100MHz
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;      //推挽复用输出
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;        //上拉
-	GPIO_Init(GPIOF,&GPIO_InitStructure);              //初始化PF8
+	GPIO_Init(GPIOF,&GPIO_InitStructure);              //初始化PF7
 	  
 	TIM_TimeBaseStructure.TIM_Prescaler=psc;  //定时器分频
 	TIM_TimeBaseStructure.TIM_CounterMode=TIM_CounterMode_Up; //向上计数模式
 	TIM_TimeBaseStructure.TIM_Period=arr;   //自动重装载值
 	TIM_TimeBaseStructure.TIM_ClockDivision=TIM_CKD_DIV1; 
 	
-	TIM_TimeBaseInit(TIM13,&TIM_TimeBaseStructure);//初始化定时器13
+	TIM_TimeBaseInit(TIM11,&TIM_TimeBaseStructure);//初始化定时器11
 	
-	//初始化TIM13 Channel1 PWM模式	 
+	//初始化TIM11 Channel1 PWM模式	 
 	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1; //选择定时器模式:TIM脉冲宽度调制模式2
  	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable; //比较输出使能
 	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_Low; //输出极性:TIM输出比较极性低
-	TIM_OC1Init(TIM13, &TIM_OCInitStructure);  //根据T指定的参数初始化外设TIM13OC1
+	TIM_OC1Init(TIM11, &TIM_OCInitStructure);  //根据T指定的参数初始化外设TIM11OC1
 
-	TIM_OC1PreloadConfig(TIM13, TIM_OCPreload_Enable);  //使能TIM13在CCR1上的预装载寄存器
+	TIM_OC1PreloadConfig(TIM11, TIM_OCPreload_Enable);  //使能TIM11在CCR1上的预装载寄存器
  
-  TIM_ARRPreloadConfig(TIM13,ENABLE);//ARPE使能 
+  TIM_ARRPreloadConfig(TIM11,ENABLE);//ARPE使能 
 	
-	TIM_Cmd(TIM13, ENABLE);  //使能TIM13									  
+	TIM_Cmd(TIM11, ENABLE);  //使能TIM13
+ 
+										  
 }  
-
-//TIM14 PWM部分初始化 
+//TIM10 PWM部分初始化 
 //PWM输出初始化
 //arr：自动重装值
 //psc：时钟预分频数
-void TIM14_PWM_Init(u32 arr,u32 psc)
+void TIM10_PWM_Init(u32 arr,u32 psc)
 {		 					 
 	//此部分需手动修改IO口设置
 	
@@ -75,36 +76,38 @@ void TIM14_PWM_Init(u32 arr,u32 psc)
 	TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
 	TIM_OCInitTypeDef  TIM_OCInitStructure;
 	
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM14,ENABLE);  	//TIM14时钟使能    
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM10,ENABLE);  	//TIM10时钟使能    
 //	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOF, ENABLE); 	//使能PORTF时钟	
 	
-	GPIO_PinAFConfig(GPIOF,GPIO_PinSource9,GPIO_AF_TIM14); //GPIOF9复用为定时器14
+	GPIO_PinAFConfig(GPIOF,GPIO_PinSource6,GPIO_AF_TIM10); //GPIOF6复用为定时器10
 	
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;           //GPIOF9
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;           //GPIOF6
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;        //复用功能
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;	//速度100MHz
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;      //推挽复用输出
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;        //上拉
-	GPIO_Init(GPIOF,&GPIO_InitStructure);              //初始化PF9
+	GPIO_Init(GPIOF,&GPIO_InitStructure);              //初始化PF6
 	  
 	TIM_TimeBaseStructure.TIM_Prescaler=psc;  //定时器分频
 	TIM_TimeBaseStructure.TIM_CounterMode=TIM_CounterMode_Up; //向上计数模式
 	TIM_TimeBaseStructure.TIM_Period=arr;   //自动重装载值
 	TIM_TimeBaseStructure.TIM_ClockDivision=TIM_CKD_DIV1; 
 	
-	TIM_TimeBaseInit(TIM14,&TIM_TimeBaseStructure);//初始化定时器14
+	TIM_TimeBaseInit(TIM10,&TIM_TimeBaseStructure);//初始化定时器10
 	
-	//初始化TIM14 Channel1 PWM模式	 
+	//初始化TIM10 Channel1 PWM模式	 
 	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1; //选择定时器模式:TIM脉冲宽度调制模式2
  	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable; //比较输出使能
 	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_Low; //输出极性:TIM输出比较极性低
-	TIM_OC1Init(TIM14, &TIM_OCInitStructure);  //根据T指定的参数初始化外设TIM1 4OC1
+	TIM_OC1Init(TIM10, &TIM_OCInitStructure);  //根据T指定的参数初始化外设TIM10OC1
 
-	TIM_OC1PreloadConfig(TIM14, TIM_OCPreload_Enable);  //使能TIM14在CCR1上的预装载寄存器
+	TIM_OC1PreloadConfig(TIM10, TIM_OCPreload_Enable);  //使能TIM10在CCR1上的预装载寄存器
  
-  TIM_ARRPreloadConfig(TIM14,ENABLE);//ARPE使能 
+  TIM_ARRPreloadConfig(TIM10,ENABLE);//ARPE使能 
 	
-	TIM_Cmd(TIM14, ENABLE);  //使能TIM14										  
+	TIM_Cmd(TIM10, ENABLE);  //使能TIM10
+ 
+										  
 }  
 
 
@@ -137,7 +140,7 @@ void TIM3_Int_Init(u16 arr,u16 psc)
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority=0x03; //子优先级3
 	NVIC_InitStructure.NVIC_IRQChannelCmd=ENABLE;
 	NVIC_Init(&NVIC_InitStructure);
-	PWM1=0;                                            //PWM1翻转
+	PWM1=1;                                            //PWM1翻转
 }
 
 //定时器3中断服务函数
@@ -148,37 +151,37 @@ void TIM3_IRQHandler(void)
 		count1++;
 		if(count1 < ACQU_START_TIME)
 		{
-			PWM1 = 0;
+			PWM1 = 1;
 			flag = 0;
 		}
 		if ((count1 >= ACQU_START_TIME)&&(count1 < (ACQU_START_TIME + 40)))
 		{
-			PWM1 = 0;
-			flag = 2;
+			PWM1 = 1;
+			flag = 1;
 		}
 		if ((count1 >= (ACQU_START_TIME + 40))&&(count1 < 320))
 		{
-			PWM1 = 0;
+			PWM1 = 1;
 			flag = 0;
 		}
 		if ((count1 >= 320)&&(count1 < (ACQU_START_TIME + 320)))
 		{
-			PWM1 = 1;
+			PWM1 = 0;
 			flag = 0;
 		}
 		if ((count1 >= (ACQU_START_TIME + 320))&&(count1 < (ACQU_START_TIME + 360)))
 		{
-			PWM1 = 1;
-			flag = 1;
+			PWM1 = 0;
+			flag = 2;
 		}
 		if ((count1 >= (ACQU_START_TIME + 360))&&(count1 < 640))
 		{
-			PWM1 = 1;
+			PWM1 = 0;
 			flag = 0;
 		}
 		if(count1 >= 640)
 		{
-			PWM1 = 0;
+			PWM1 = 1;
 			flag = 0;
 			count1 = 0;
 		}
